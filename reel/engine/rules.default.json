@@ -1,0 +1,96 @@
+{
+ "_source": "aifter-instagram-planning/planning/ai-trend-account-benchmark.md · 분석한 릴스 C (2026-10-13). Reference reel measured at 0.5 s sampling + ffmpeg scene detection.",
+ "shot": {
+  "target": 1.6,
+  "min": 1,
+  "max": 2.9
+ },
+ "mix": {
+  "G": 0.45,
+  "S": 0.43,
+  "F": 0.12
+ },
+ "poses": {
+  "F": "face full screen",
+  "S": "graphic top + face bottom",
+  "G": "graphic full screen"
+ },
+ "faceFull": {
+  "onSentenceStart": [
+   "근데",
+   "그러니까",
+   "그래서",
+   "그리고"
+  ],
+  "maxShot": 1.6,
+  "neverFirst": true,
+  "neverTwiceInRow": true
+ },
+ "punchIn": {
+  "onSentenceIndex": "twist",
+  "scale": 1.14,
+  "blurPx": 8,
+  "duration": 0.18
+ },
+ "graphicStateEvery": 0.5,
+ "caption": {
+  "words": [
+   2,
+   5
+  ],
+  "style": "box at the seam between graphic and face",
+  "highlight": "keywords only"
+ },
+ "motion": {
+  "_source": "User rule 2026-10-13: variety = no identical motion back-to-back, not more motion types. Recipes from HyperFrames registry components installed in compositions/components.",
+  "newScreenFromGraphic": [
+   "wipe",
+   "pixel",
+   "zoom"
+  ],
+  "newScreenFromFace": [
+   "panel",
+   "skeleton",
+   "wipe"
+  ],
+  "sameScreen": [
+   "expand",
+   "cut",
+   "slide"
+  ],
+  "faceEnter": [
+   "cut",
+   "rack"
+  ],
+  "noRepeatInRow": true,
+  "maxShare": 0.3,
+  "durations": {
+   "wipe": 0.45,
+   "pixel": 0.5,
+   "zoom": 0.35,
+   "panel": 0.44,
+   "skeleton": 0.55,
+   "expand": 0.35,
+   "rack": 0.3,
+   "punch": 0.18,
+   "cut": 0,
+   "slide": 0.4
+  },
+  "registry": {
+   "wipe": "directional-wipe",
+   "pixel": "grid-pixelate-wipe",
+   "zoom": "zoom-through-transition",
+   "panel": "panel-reveal",
+   "skeleton": "skeleton-reveal"
+  }
+ },
+ "objects": {
+  "_source": "4-account comparison 2026-10-13 (benchmark doc): a different object per sentence; persistent progress HUD; one real-output proof screen; hand-drawn notes; one card straddling the seam.",
+  "noRepeatInRow": true,
+  "maxUses": 2,
+  "hud": true,
+  "proofScreens": 1,
+  "straddle": 1,
+  "paletteAlternate": true
+ }
+}

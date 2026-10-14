@@ -1,0 +1,4 @@
+.venv-asr/
+videos/
+node_modules/
+reel/engine/assets/sfx-lib/
