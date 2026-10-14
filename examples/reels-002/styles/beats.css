@@ -31,3 +31,4 @@
 .cin3{display:flex;align-items:center;gap:16px;height:110px;margin-top:26px;padding:0 30px;border-radius:999px;background:#fff;border:3px solid #18181B;font-size:46px;color:#18181B}
 .csend3{margin-left:auto;padding:12px 28px;border-radius:999px;background:#18181B;color:#fff;font-size:32px}
 .cheart{position:absolute;right:110px;bottom:120px;font-size:80px;color:#EF4444;opacity:0}
+.mnote{margin-top:16px;font-weight:600;font-size:30px;color:#52525B}.mnote b{color:#18181B}

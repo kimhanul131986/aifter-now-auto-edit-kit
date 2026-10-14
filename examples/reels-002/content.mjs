@@ -58,7 +58,7 @@ ${h.scr('b6', h.bg(5), `${h.hdr(5, '이 영상')}
     <div class="rc"><div class="rcol"><small>규칙 (레퍼런스)</small><b>1.6초</b><span>얼굴 12 · 분할 43 · 그래픽 45</span></div><i class="arr" id="arr">→</i>
       <div class="rcol hot" id="mine"><small>지금 이 영상</small><b>${mean}초</b><span>얼굴 ${share('F')} · 분할 ${share('S')} · 그래픽 ${share('G')}</span></div></div>
     <div class="mini" id="mini">${SH.map(s => `<i class="p${s.pose}" style="flex:${(s.b - s.a).toFixed(2)}"></i>`).join('')}</div>
-    <div class="rowl"><span class="chip">장면 ${SH.length}개</span><span class="chip hot">같은 전환 연속 ${ctx.MSTAT.repeatsInRow}번</span></div></div>`)}
+    <div class="mnote">장면 ${SH.length}개 · 같은 전환 연속 <b>${ctx.MSTAT.repeatsInRow}번</b></div></div>`)}
 ${h.scr('b7', h.bg(6), `${h.hdr(6, '정직하게')}
   <div class="card dark pad"><i class="skel"></i>
     <div class="cols2"><div class="cl2" id="col0"><small>자동</small>${['컷 편집', '자막', '장면 배치', '전환', '효과음'].map(s => `<span>${s}</span>`).join('')}</div>

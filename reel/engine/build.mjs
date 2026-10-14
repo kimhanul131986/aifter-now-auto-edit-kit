@@ -59,7 +59,7 @@ const CHAP = content.chapters || [];
 const chaps = CHAP.length ? `<div id="chaps"><i class="scrim" id="scrim"></i>${CHAP.map(([, n, w], k) => `<div class="chap" id="ch${k}"><em>${n}</em><b><span>${w}</span></b><u></u></div>`).join('')}</div>` : '';
 const seam = content.seam || null;
 const seamHtml = seam ? `<div id="strad"><i>${seam.icon}</i><span>${seam.text}</span><b>${seam.value}</b></div>` : '';
-const coverHtml = cover ? `<div id="cover"><div class="cv"><em>${cover.tag}</em>${cover.lines.map((l, k) => `<b${k === cover.lines.length - 1 ? ' class="y"' : ''}><span>${l}</span></b>`).join('')}<u></u>${cover.sub ? `<small>${cover.sub}</small>` : ''}</div></div>` : '';
+const coverHtml = cover ? `<div id="cover"><div class="cv"><em>${cover.tag}</em>${cover.lines.map((l, k) => `<b${k === cover.lines.length - 1 ? ' class="y"' : ''} style="font-size:${Math.min(150, Math.floor(912 / ([...l].length * .92)))}px;white-space:nowrap"><span>${l}</span></b>`).join('')}<u></u>${cover.sub ? `<small>${cover.sub}</small>` : ''}</div></div>` : '';
 
 // ---------- Lottie ----------
 const LOT = { check: JSON.parse(rd(path.join(ENG, 'assets/check.json'))), ...(content.lottie || {}) };
