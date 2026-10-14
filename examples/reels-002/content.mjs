@@ -11,7 +11,7 @@ export default {
   anchors: ({ at }) => ({
     prog: at('프로그램 한 번도'), open: at('안 열고'),
     input: at('찍은 영상이랑'), cc: at('클로드 코드에'),
-    takes: at('틀린 테이크'), last: at('마지막에 제대로'), gap: at('빈 구간도'), len: at('3분이'),
+    takes: at('틀린 테이크'), last: at('마지막에 제대로'), gap: at('빈 구간도'), len: at('전부 잘라'),
     subs: at('자막은'), twist: at('근데 진짜'),
     c6k: at('댓글 6천'), slice: at('받은 릴스를'), often: at('화면이 몇 초마다'), face: at('바뀌는지, 얼굴은'), num: at('나오는지 숫자로'),
     rule: at('그 규칙'), mine: at('제 영상에'), now: at('지금 이 화면'),

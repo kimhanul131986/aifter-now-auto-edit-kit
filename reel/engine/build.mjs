@@ -19,7 +19,10 @@ const V = JSON.parse(rd(path.join(P, 'data/video.json')));
 const content = (await import(pathToFileURL(path.join(P, 'content.mjs')).href)).default;
 
 const D = plan.stats.duration, SH = plan.shots, CH = plan.chunks, MSTAT = plan.stats.motion;
-const at = txt => { const c = CH.find(c => c.text.includes(txt)); if (!c) throw new Error('anchor not found in captions: ' + txt); return +c.start.toFixed(3); };
+// anchor = start of the caption chunk where the phrase begins; phrases may span chunk boundaries (chunking changes with the take)
+const CAPTXT = CH.map(c => c.text).join(' '), CAPOFF = CH.reduce((o, c, i) => (o.push(i ? o[i - 1] + CH[i - 1].text.length + 1 : 0), o), []);
+const at = txt => { const i = CAPTXT.indexOf(txt); if (i < 0) throw new Error('anchor not found in captions: ' + txt);
+  let k = CAPOFF.length - 1; while (k > 0 && CAPOFF[k] > i) k--; return +CH[k].start.toFixed(3); };
 const BS = bi => SH.find(h => h.screen === `b${bi + 1}`).a, BE = bi => SH.filter(h => h.beat === bi).at(-1).b;
 const ctx = { V, D, SH, CH, MSTAT, BS, BE, at };
 const X = content.anchors(ctx);
@@ -59,7 +62,9 @@ const CHAP = content.chapters || [];
 const chaps = CHAP.length ? `<div id="chaps"><i class="scrim" id="scrim"></i>${CHAP.map(([, n, w], k) => `<div class="chap" id="ch${k}"><em>${n}</em><b><span>${w}</span></b><u></u></div>`).join('')}</div>` : '';
 const seam = content.seam || null;
 const seamHtml = seam ? `<div id="strad"><i>${seam.icon}</i><span>${seam.text}</span><b>${seam.value}</b></div>` : '';
-const coverHtml = cover ? `<div id="cover"><div class="cv"><em>${cover.tag}</em>${cover.lines.map((l, k) => `<b${k === cover.lines.length - 1 ? ' class="y"' : ''} style="font-size:${Math.min(150, Math.floor(912 / ([...l].length * .92)))}px;white-space:nowrap"><span>${l}</span></b>`).join('')}<u></u>${cover.sub ? `<small>${cover.sub}</small>` : ''}</div></div>` : '';
+// cover line size: estimated glyph widths (Hangul 1em, Latin/digits .6em, space .3em, punctuation .35em) so each line fits 912px
+const coverSize = l => Math.min(150, Math.floor(912 / ([...l].reduce((u, c) => u + (/[가-힣]/.test(c) ? 1 : /\s/.test(c) ? .3 : /[A-Za-z0-9]/.test(c) ? .6 : .35), 0) * .98)));
+const coverHtml = cover ? `<div id="cover"><div class="cv"><em>${cover.tag}</em>${cover.lines.map((l, k) => `<b${k === cover.lines.length - 1 ? ' class="y"' : ''} style="font-size:${coverSize(l)}px;white-space:nowrap"><span>${l}</span></b>`).join('')}<u></u>${cover.sub ? `<small>${cover.sub}</small>` : ''}</div></div>` : '';
 
 // ---------- Lottie ----------
 const LOT = { check: JSON.parse(rd(path.join(ENG, 'assets/check.json'))), ...(content.lottie || {}) };
