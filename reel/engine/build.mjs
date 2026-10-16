@@ -121,7 +121,9 @@ ${JSON.stringify(CHAP)}.forEach(([si],k)=>{const h=SH.find(x=>x.pose==='F'&&x.si
   tl.fromTo(c+' u',{scaleX:0},fi(t+.25,{scaleX:1,duration:.4,ease:'power3.inOut'}),t+.25);
   tl.to(c,{opacity:0,y:-10,duration:.15},h.b-.15);tl.set(c,{y:0},h.b)});
 ${seam ? `// ---- seam card on the split shots of one beat; the caption steps down for those shots
-SH.forEach(h=>{if(h.screen==='${seam.beat}'&&h.pose==='S'){tl.fromTo('#strad',{opacity:0,scale:.8,y:20},fi(h.a+.1,{opacity:1,scale:1,y:0,...POP}),h.a+.1);tl.set('#strad',{opacity:0},h.b);tl.set('#caps',{y:1450},h.a+.001)}});` : ''}
+SH.forEach(h=>{if(h.screen==='${seam.beat}'&&h.pose==='S'){tl.fromTo('#strad',{opacity:0,scale:.8,y:20},fi(h.a+.1,{opacity:1,scale:1,y:0,...POP}),h.a+.1);tl.set('#strad',{opacity:0},h.b);
+  // starts 1 ms after the shot's own caption move so it renders last (an in-place expand tweens #caps over the shot)
+  if(h.enter==='expand')tl.to('#caps',{y:1450,duration:MD.expand,ease:EZ},h.a+.001);else tl.set('#caps',{y:1450},h.a+.001)}});` : ''}
 ${cover ? `// ---- cover after the last line (thumbnail frame)
 {tl.set('#face',{opacity:0},D);tl.set('#cover',{opacity:1},D);tl.fromTo('#cover em',{opacity:0,x:-24},fi(D+.05,{opacity:1,x:0,duration:.25}),D+.05);
  QA('#cover b span').forEach((e,k)=>tl.fromTo(e,{yPercent:110},fi(D+.1+k*.12,{yPercent:0,duration:.45,ease:'power4.out'}),D+.1+k*.12));

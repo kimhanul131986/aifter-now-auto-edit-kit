@@ -18,6 +18,17 @@ const picks = selectTakes(sentences, words);
 const mean = meanLevel(src);
 const report = [];
 
+// ASR can stretch a take's first word back over a stumble ("그래픽 내용만… 그래픽" → one 1.5 s "그래픽"):
+// cap the first word at ~0.16 s per syllable so the cut doesn't open on the fragment
+for (const p of picks) {
+  const w = p.take && words.find(x => Math.abs(x.start - p.take.start) < 1e-3);
+  const max = w && [...w.text.replace(/[^\p{L}\p{N}]/gu, '')].length * 0.16 + 0.1;
+  if (w && w.end - w.start > max + 0.3) {
+    report.push(`first word "${w.text}" @${w.start.toFixed(2)}s lasts ${(w.end - w.start).toFixed(2)}s — start moved to ${(w.end - max).toFixed(2)}s (likely a stumble before it)`);
+    p.take.start = +(w.end - max).toFixed(3);
+  }
+}
+
 // sentence spans → padded segments that never reach into a neighbouring word
 const spans = picks.filter(p => p.take).map(p => [p.take.start, p.take.end, p]);
 const merged = [];
